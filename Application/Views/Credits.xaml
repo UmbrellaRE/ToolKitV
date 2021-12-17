@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="ToolKitV.Views.Credits"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ToolKitV.Views"
+             mc:Ignorable="d"
+             d:DataContext="{Binding Mode=Default, RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel>
+                <TextBlock 
+                    HorizontalAlignment="Left"
+                    Foreground="#33FFFFFF"
+                    Style="{StaticResource TT Norms Bold}"
+                    FontSize="10"
+                    Text="Umbrella.re, 2021"/>
+
+                <TextBlock 
+                    HorizontalAlignment="Left"
+                    Foreground="#33FFFFFF"
+                    Style="{StaticResource TT Norms Regular}"
+                    FontSize="10"
+                    Text="{Binding Version}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <Button
+                    Margin="30 0 0 0"
+                    Cursor="Hand"
+                    HorizontalAlignment="Left"
+                    Click="Button_Click">
+
+                    <Image RenderOptions.BitmapScalingMode="NearestNeighbor" Width="12" Height="12" Source="../Assets/Images/discord.png"/>
+                    
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#0DFFFFFF"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#14FFFFFF"/>
+                                </Trigger>
+                            </Style.Triggers>
+
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border 
+                                Width="26" 
+                                Height="26"
+                                CornerRadius="6"
+                                Background="{TemplateBinding Background}">
+
+                                <ContentPresenter
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button
+                    Margin="5 0 0 0"
+                    Cursor="Hand"
+                    HorizontalAlignment="Left"
+                    Click="Button_Click_1">
+
+                    <Image RenderOptions.BitmapScalingMode="NearestNeighbor" Width="10" Height="10" Source="../Assets/Images/logo_small_grey.png"/>
+
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background" Value="#0DFFFFFF"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#14FFFFFF"/>
+                                </Trigger>
+                            </Style.Triggers>
+
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border 
+                                Width="26" 
+                                Height="26"
+                                CornerRadius="6"
+                                Background="{TemplateBinding Background}">
+
+                                <ContentPresenter
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

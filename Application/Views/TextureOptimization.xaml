@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="ToolKitV.Views.TextureOptimization"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ToolKitV.Views"
+             mc:Ignorable="d">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Margin="0 -5 0 0">
+                <local:SelectFolder
+                    x:Name="MainFolder"
+                    Title="Textures Folder"
+                    PropertyChanged="OnMainPathChanged"/>
+
+                <StackPanel Margin="0 10 0 0">
+                    <!--<local:ToogleButton
+                        Title ="Backup"/>-->
+
+                    <local:SelectFolder
+                        x:Name="BackupFolder"
+                        Title="Backup Folder"
+                        PropertyChanged="OnBackupPathChanged"/>
+                </StackPanel>
+
+                <StackPanel Margin="0 10 0 0">
+                    <local:ToogleButton
+                        x:Name="OnlyOverSized"
+                        Title="Only over-sized textures"
+                        Description="In this case, only textures that exceed 16 MB will be optimized."
+                        PropertyChanged="OnOnlyOverSizedTexturesChanged"/>
+                </StackPanel>
+
+                <StackPanel Margin="0 0 0 0">
+                    <local:InputNumber
+                        x:Name="OptimizeSize"
+                        Title="Optimize Size"
+                        Description="Width + Height in px = Optimize size, if the textures are greater than the specified value,&#10;then they will be optimized"
+                        NumberValue="8192"
+                        PropertyChanged="OptimizeSize_PropertyChanged"/>
+                </StackPanel>
+
+                <StackPanel Margin="0 10 0 0">
+                    <local:ToogleButton
+                        x:Name="Downsize"
+                        Title="Downsize"
+                        Description="If enabled, the size of textures will be reduced by 2 times."
+                        PropertyChanged="Downsize_PropertyChanged"
+                        IsToogled="True"/>
+                </StackPanel>
+
+                <StackPanel Margin="0 10 0 0">
+                    <local:ToogleButton
+                        x:Name="FormatOptimize"
+                        Title="Format optimization"
+                        Description="Change DDS format to smallest, may affect the display quality of colors."
+                        PropertyChanged="FormatOptimize_PropertyChanged"/>
+                </StackPanel>
+
+                <StackPanel Margin="0 35 0 0" Orientation="Horizontal">
+                    <local:Button x:Name="OptimizeButton" Title="Optimize" IsButtonEnabledValue="False" Click="OptimizeButton_Click"/>
+                    <local:Button x:Name="AnalyzeButton" Title="Analyze" IsButtonEnabledValue="False" Click="AnalyzeButton_Click" Margin="30 0 0 0"/>
+                </StackPanel>
+            </StackPanel>
+
+            <local:Stats Margin="50 0 0 0" x:Name="Stats"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

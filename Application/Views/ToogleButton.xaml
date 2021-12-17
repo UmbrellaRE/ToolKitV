@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="ToolKitV.Views.ToogleButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ToolKitV.Views"
+             mc:Ignorable="d"
+             d:DataContext="{Binding Mode=Default, RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label
+                    HorizontalAlignment="Left"
+                    Foreground="White"
+                    Style="{StaticResource TT Norms Regular}"
+                    FontSize="14"
+                    Content="{Binding Title}"/>
+                <ToggleButton Margin="8 0 0 0" Width="20" Height="20" Click="ToggleButton_Click">
+                    <ToggleButton.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="6"/>
+                        </Style>
+                    </ToggleButton.Resources>
+                    <ToggleButton.Style>
+                        <Style TargetType="{x:Type ToggleButton}">
+                            <Setter Property="Background" Value="#0DFFFFFF" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center"                  
+                                                      VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ToggleButton.Style>
+
+                    <Rectangle Width="10" Height="10" RadiusX="3" RadiusY="3">
+                        <Rectangle.Style>
+                            <Style TargetType="Rectangle">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsToogled}" Value="True">
+                                        <Setter Property="Fill" Value="#FFFFFF" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsToogled}" Value="False">
+                                        <Setter Property="Fill" Value="Transparent" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Rectangle.Style>
+                    </Rectangle>
+                </ToggleButton>
+            </StackPanel>
+
+            <Label 
+                HorizontalAlignment="Left"
+                Foreground="#33FFFFFF"
+                Style="{StaticResource TT Norms Regular}"
+                FontSize="14"
+                Content="{Binding Description}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
