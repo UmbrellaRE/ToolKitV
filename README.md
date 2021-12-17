@@ -5,8 +5,8 @@ Umbrella.re Toolkit it's utility which will help you optimize your textures and 
 Check [releases](https://github.com/umbrellare/ToolKitV/releases)
 
 ## Contacts
-[Discord](https://discord.gg/8mEAy9a)
-[Our Site](https://umbrella.re)
+- [Discord](https://discord.gg/8mEAy9a)
+- [Our Site](https://umbrella.re)
 
 ## Features
 - Optimize textures (with many settings)
