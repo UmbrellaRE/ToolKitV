@@ -20,5 +20,6 @@ Check [releases](https://github.com/umbrellare/ToolKitV/releases)
 
 ## Credits
  - dexyfex for [Codewalker](https://github.com/dexyfex/CodeWalker)
- - [blattersturm]( https://github.com/blattersturm) for some parts of updater/installer from [FiveM](https://github.com/citizenfx/fivem)
+ - [blattersturm](https://github.com/blattersturm) for some parts of updater/installer from [FiveM](https://github.com/citizenfx/fivem)
+ - Microsoft for [texconv](https://github.com/microsoft/DirectXTex)
  - Disquse for motivation to do updater on c++ :D
