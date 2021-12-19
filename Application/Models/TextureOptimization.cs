@@ -29,7 +29,13 @@ namespace ToolkitV.Models
             string savePath = "temp.dds";
             byte[] dds;
 
-            texture.Levels = Convert.ToByte(Math.Log(Math.Min(texture.Width, texture.Height), 2) - 1);
+            int minSide = Math.Min(texture.Width, texture.Height);
+            int maxLevel = (int)Math.Log(minSide, 2);
+
+            if (texture.Levels >= maxLevel)
+            {
+                texture.Levels = Convert.ToByte(maxLevel - 1);
+            }
 
             try
             {
@@ -82,12 +88,12 @@ namespace ToolkitV.Models
             {
                 texture.Width /= 2;
                 texture.Height /= 2;
-                texture.Levels = Convert.ToByte(Math.Log(Math.Min(texture.Width, texture.Height), 2));
+                texture.Levels = Convert.ToByte(Math.Log(Math.Min(texture.Width, texture.Height), 2) - 1);
             }
 
             Process texConvertation = new();
             texConvertation.StartInfo.FileName = "Dependencies/texconv.exe";
-            texConvertation.StartInfo.Arguments = $"-w {texture.Width} -h {texture.Height} -m {texture.Levels} temp.dds -y -f {texConvFormat}";
+            texConvertation.StartInfo.Arguments = $"-w {texture.Width} -h {texture.Height} -m {texture.Levels} -f {texConvFormat} -bc d temp.dds -y";
             texConvertation.StartInfo.UseShellExecute = false;
             texConvertation.StartInfo.CreateNoWindow = true;
 
@@ -99,8 +105,6 @@ namespace ToolkitV.Models
             Texture tex = DDSIO.GetTexture(dds);
 
             texture.Data = tex.Data;
-            texture.Width = tex.Width;
-            texture.Height = tex.Height;
             texture.Depth = tex.Depth;
             texture.Levels = tex.Levels;
             texture.Format = tex.Format;
