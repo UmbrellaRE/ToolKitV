@@ -223,7 +223,7 @@ namespace ToolkitV.Models
                 {
                     Texture texture = ytdFile.TextureDict.Textures[j];
 
-                    if (onlyOverSized || (texture.Width + texture.Height) >= optimizeSizeValue)
+                    if (texture.Width + texture.Height >= optimizeSizeValue)
                     {
                         if (!ytdChanged)
                         {
@@ -238,7 +238,7 @@ namespace ToolkitV.Models
                                     {
                                         backupPath += "\\" + dirs[k];
 
-                                        if (!System.IO.Directory.Exists(backupPath))
+                                        if (!Directory.Exists(backupPath))
                                         {
                                             Directory.CreateDirectory(backupPath);
                                         }

@@ -26,8 +26,8 @@
                 <StackPanel Margin="0 10 0 0">
                     <local:ToogleButton
                         x:Name="OnlyOverSized"
-                        Title="Only over-sized textures"
-                        Description="In this case, only textures that exceed 16 MB will be optimized."
+                        Title="Only oversized texture dictionaries"
+                        Description="In this case, only ytds that exceed 16 MB will be optimized."
                         PropertyChanged="OnOnlyOverSizedTexturesChanged"/>
                 </StackPanel>
 

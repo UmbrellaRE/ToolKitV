@@ -94,7 +94,7 @@ namespace ToolKitV.Views
         private void OnOnlyOverSizedTexturesChanged(object sender, PropertyChangedEventArgs e)
         {
             OnlyOverSizedToogled = OnlyOverSized.IsToogled;
-            OptimizeSize.IsInputEnabled = !OnlyOverSized.IsToogled;
+            //OptimizeSize.IsInputEnabled = !OnlyOverSized.IsToogled;
         }
 
         private void OptimizeSize_PropertyChanged(object sender, PropertyChangedEventArgs e)
