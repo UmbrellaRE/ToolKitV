@@ -3,7 +3,7 @@ Umbrella.re Toolkit it's utility which will help you optimize your textures and 
 Join to our [Discord](https://discord.gg/8mEAy9a) ☂️
 
 ## Download
-Check [releases](https://github.com/umbrellare/ToolKitV/releases)
+Check [our site](https://umbrella.re)
 
 ## Contacts
 - [Discord](https://discord.gg/8mEAy9a)
