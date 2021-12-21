@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Threading;
+using System.Windows.Threading;
 
 namespace ToolKitV
 {
@@ -44,6 +45,16 @@ namespace ToolKitV
             //}
 
             base.OnExit(e);
+        }
+
+        public App()
+        {
+            DispatcherUnhandledException += App_DispatcherUnhandledException;
+        }
+
+        void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show("Error message:\n" + e.Exception.Message + "\n\nIf you need help, write to our discord.\nOur site: umbrella.re", "ToolKitV Crash", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
