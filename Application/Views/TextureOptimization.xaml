@@ -35,7 +35,7 @@
                     <local:InputNumber
                         x:Name="OptimizeSize"
                         Title="Optimize Size"
-                        Description="Width + Height in px = Optimize size, if the textures are greater than the specified value,&#10;then they will be optimized"
+                        Description="Width + Height in px = Optimize size. If nothing is optimized,&#10;try to set less values(4096, 2048, 1024, 512)"
                         NumberValue="8192"
                         PropertyChanged="OptimizeSize_PropertyChanged"/>
                 </StackPanel>
@@ -63,7 +63,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <local:Stats Margin="50 0 0 0" x:Name="Stats"/>
+            <local:Stats Margin="190 0 0 0" x:Name="Stats"/>
         </StackPanel>
     </Grid>
 </UserControl>
