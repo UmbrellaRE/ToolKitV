@@ -3,6 +3,8 @@ using CodeWalker.Utils;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
+using ToolKitV.Models;
 
 namespace ToolkitV.Models
 {
@@ -26,7 +28,8 @@ namespace ToolkitV.Models
 
         private static Texture OptimizeTexture(Texture texture, bool formatOptimization, bool downsize)
         {
-            string savePath = "temp.dds";
+            string currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string savePath = currentDir + "\\temp.dds";
             byte[] dds;
 
             int minSide = Math.Min(texture.Width, texture.Height);
@@ -101,7 +104,7 @@ namespace ToolkitV.Models
 
             texConvertation.WaitForExit();
 
-            dds = File.ReadAllBytes("temp.dds");
+            dds = File.ReadAllBytes(savePath);
             Texture tex = DDSIO.GetTexture(dds);
 
             texture.Data = tex.Data;
@@ -113,12 +116,12 @@ namespace ToolkitV.Models
             return texture;
         }
 
-        private static float flagToSize(int flag)
+        private static float FlagToSize(int flag)
         {
             return (((flag >> 17) & 0x7f) + (((flag >> 11) & 0x3f) << 1) + (((flag >> 7) & 0xf) << 2) + (((flag >> 5) & 0x3) << 3) + (((flag >> 4) & 0x1) << 4)) * (0x2000 << (flag & 0xF));
         }
 
-        private static float[] GetFileSize(string filePath)
+        private static float[] GetFileSize(string filePath, LogWriter logWriter)
         {
             FileStream fs = new(filePath, FileMode.Open);
             BinaryReader reader = new(fs);
@@ -146,10 +149,12 @@ namespace ToolkitV.Models
             reader.Read(data, 0, 4);
             physicalSize = BitConverter.ToInt32(data);
 
-            float vSize = flagToSize(virtualSize) / 1024 / 1024;
-            float pSize = flagToSize(physicalSize) / 1024 / 1024;
+            float vSize = FlagToSize(virtualSize) / 1024 / 1024;
+            float pSize = FlagToSize(physicalSize) / 1024 / 1024;
 
             fs.Close();
+
+            logWriter?.LogWrite($"File path: {filePath}: Magic - {magStr}, virtualSize - {vSize} MB, physicalSize - {pSize} MB");
 
             return new float[] { vSize, pSize };
         }
@@ -166,7 +171,7 @@ namespace ToolkitV.Models
             }
             else
             {
-                RpfBinaryFileEntry be = new RpfBinaryFileEntry
+                RpfBinaryFileEntry be = new()
                 {
                     FileSize = (uint)data?.Length
                 };
@@ -203,19 +208,33 @@ namespace ToolkitV.Models
 
             int currentProgress = 0;
 
+            LogWriter logWriter = new("Start texture optimizing");
+
             for (int i = 0; i < inputFiles.Length; i++)
             {
                 string filePath = inputFiles[i];
                 string fileName = Path.GetFileName(filePath);
 
-                float[] fileSizes = GetFileSize(filePath);
+                logWriter.LogWrite($"File name: {fileName}, File path: ${filePath}");
+
+                float[] fileSizes = GetFileSize(filePath, logWriter);
 
                 if (onlyOverSized && fileSizes[1] < 16 || (fileSizes[0] == 0.0f && fileSizes[1] == 0.0f))
                 {
+                    logWriter.LogWrite($"File name: {fileName}, not oversized, skip");
                     continue;
                 }
 
-                YtdFile ytdFile = CreateYtdFile(filePath);
+                YtdFile ytdFile;
+
+                try
+                {
+                    ytdFile = CreateYtdFile(filePath);
+                } catch (Exception ex)
+                {
+                    logWriter.LogWrite($"YtdFile not created: {ex}");
+                    continue;
+                }
 
                 bool ytdChanged = false;
 
@@ -264,7 +283,7 @@ namespace ToolkitV.Models
                     byte[] newData = ytdFile.Save();
                     File.WriteAllBytes(filePath, newData);
 
-                    float[] newFileSizes = GetFileSize(filePath);
+                    float[] newFileSizes = GetFileSize(filePath, logWriter);
                     resultsData.optimizedSize += fileSizes[1] - newFileSizes[1];
                 }
 
@@ -299,7 +318,7 @@ namespace ToolkitV.Models
             {
                 string filePath = inputFiles[i];
 
-                float[] sizes = GetFileSize(filePath);
+                float[] sizes = GetFileSize(filePath, null);
 
                 results.virtualSize += sizes[0];
                 results.physicalSize += sizes[1];
