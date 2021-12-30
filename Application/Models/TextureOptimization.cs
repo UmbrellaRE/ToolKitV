@@ -28,7 +28,7 @@ namespace ToolkitV.Models
 
         private static Texture OptimizeTexture(Texture texture, bool formatOptimization, bool downsize)
         {
-            string currentDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string currentDir = Directory.GetCurrentDirectory();
             string savePath = currentDir + "\\temp.dds";
             byte[] dds;
 

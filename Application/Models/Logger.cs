@@ -15,7 +15,7 @@ namespace ToolKitV.Models
 
         private void InitLogFile()
         {
-            m_exePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            m_exePath = Directory.GetCurrentDirectory();
             try
             {
                 using StreamWriter w = File.CreateText(m_exePath + "\\" + "log.txt");
