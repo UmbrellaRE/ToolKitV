@@ -10,7 +10,7 @@
 using namespace std::filesystem;
 
 #define MAX_LOADSTRING 100
-#define VERSION "1.0.0"
+#define VERSION "1.0.1"
 
 HINSTANCE hInst;
 HWND hWnd;
@@ -231,7 +231,7 @@ bool IsUpdaterNeedToUpdate(const tinyxml2::XMLDocument& doc)
             NULL,
             FALSE,
             0, NULL,
-            NULL,
+            (LPWSTR)path.c_str(),
             &si,
             &pi
         );
@@ -277,7 +277,7 @@ void InstallOrProceed() {
                 NULL,
                 FALSE,
                 0, NULL,
-                NULL,
+                (LPWSTR)rootPath.c_str(),
                 &si,
                 &pi
             );
@@ -311,7 +311,7 @@ void InstallOrProceed() {
             NULL,
             FALSE,
             0, NULL,
-            NULL,
+            (LPWSTR)appPath.c_str(),
             &si,
             &pi
         );
