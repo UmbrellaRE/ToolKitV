@@ -12,18 +12,34 @@ namespace ToolkitV.Models
     {
         public struct StatsData
         {
-            public int filesCount = 0;
-            public int oversizedCount = 0;
-            public float virtualSize = 0;
-            public float physicalSize = 0;
+            public int filesCount;
+            public int oversizedCount;
+            public float virtualSize;
+            public float physicalSize;
+
+            public StatsData()
+            {
+                filesCount = 0;
+                oversizedCount = 0;
+                virtualSize = 0;
+                physicalSize = 0;
+            }
         }
 
         public struct ResultsData
         {
-            public float filesSize = 0;
-            public int filesOptimized = 0;
-            public float optimizedSize = 0;
-            public float optimizedProcent = 0;
+            public float filesSize;
+            public int filesOptimized;
+            public float optimizedSize;
+            public float optimizedProcent;
+
+            public ResultsData()
+            {
+                filesSize = 0;
+                filesOptimized = 0;
+                optimizedSize = 0;
+                optimizedProcent = 0;
+            }
         }
 
         private static Texture OptimizeTexture(Texture texture, bool formatOptimization, bool downsize)
@@ -242,7 +258,7 @@ namespace ToolkitV.Models
                 {
                     Texture texture = ytdFile.TextureDict.Textures[j];
 
-                    if (texture.Width + texture.Height >= optimizeSizeValue)
+                    if (!texture.Name.StartsWith("script_rt") && texture.Width + texture.Height >= optimizeSizeValue)
                     {
                         if (!ytdChanged)
                         {
@@ -266,7 +282,8 @@ namespace ToolkitV.Models
                                     File.Copy(filePath, backupPath + "\\" + fileName);
                                 }
                                 catch {}
-                        }
+                            }
+
                             ytdChanged = true;
                         }
 
