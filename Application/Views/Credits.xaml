@@ -14,7 +14,7 @@
                     Foreground="#33FFFFFF"
                     Style="{StaticResource TT Norms Bold}"
                     FontSize="10"
-                    Text="Umbrella.re, 2021"/>
+                    Text="Umbrella.re, 2021-2022"/>
 
                 <TextBlock 
                     HorizontalAlignment="Left"
