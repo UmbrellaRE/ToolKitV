@@ -18,4 +18,4 @@ std::vector<std::string> Split(const std::string& s, char delim);
 std::string GetFileHash(std::wstring path);
 void DownloadFile(std::wstring path, std::string url, std::wstring name);
 std::string GetUrl(std::string const& url);
-void UnpackArchive(std::wstring path, std::wstring zipName);
+bool UnpackArchive(std::wstring path, std::wstring zipName);

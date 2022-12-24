@@ -279,7 +279,7 @@ std::string GetUrl(std::string const& url)
     return data;
 }
 
-void UnpackArchive(std::wstring path, std::wstring zipName)
+bool UnpackArchive(std::wstring path, std::wstring zipName)
 {
     int err = 0;
     struct zip_file* zf;
@@ -292,7 +292,12 @@ void UnpackArchive(std::wstring path, std::wstring zipName)
     int numEntries = zip_get_num_entries(z, 0);
     int totaldotz = 210;
 
-    for (size_t i = 0; i < zip_get_num_entries(z, 0); i++)
+    if (numEntries <= 0)
+    {
+        return false;
+    }
+
+    for (size_t i = 0; i < numEntries; i++)
     {
         if (zip_stat_index(z, i, 0, &sb) == 0)
         {
@@ -340,4 +345,6 @@ void UnpackArchive(std::wstring path, std::wstring zipName)
     }
 
     zip_close(z);
+
+    return true;
 }
