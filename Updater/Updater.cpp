@@ -10,7 +10,7 @@
 using namespace std::filesystem;
 
 #define MAX_LOADSTRING 100
-#define VERSION "1.0.1"
+#define VERSION "1.0.2"
 
 HINSTANCE hInst;
 HWND hWnd;
@@ -79,18 +79,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
-            if (!isThreadStarted)
-            {
-                if (tickCount >= 100)
-                {
-                    isThreadStarted = true;
-                    t.join();
-                }
-                else
-                {
-                    tickCount++;
-                }
-            }
         }
     }
 
@@ -332,7 +320,7 @@ void SetWindowData(std::wstring text, int progress)
     currentText = text;
     currentProgress = progress;
 
-    InvalidateRect(hWnd, nullptr, TRUE);
+    RedrawWindow(hWnd, nullptr, nullptr, RDW_INVALIDATE | RDW_UPDATENOW);
 }
 
 int GetCurrentProgress()
