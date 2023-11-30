@@ -10,7 +10,7 @@
 using namespace std::filesystem;
 
 #define MAX_LOADSTRING 100
-#define VERSION "1.0.2"
+#define VERSION "1.1.0"
 
 HINSTANCE hInst;
 HWND hWnd;
@@ -275,18 +275,22 @@ void InstallOrProceed() {
             return;
         }
 
-        std::string data = GetUrl(API_URL GET_CACHES);
+        bool updateServerAvaliable = IsUrlValid(API_URL GET_CACHES);
 
-        tinyxml2::XMLDocument doc;
-        doc.Parse(data.c_str());
+        if (updateServerAvaliable) {
+            std::string data = GetUrl(API_URL GET_CACHES);
 
-        if (IsUpdaterNeedToUpdate(doc)) {
-            return;
+            tinyxml2::XMLDocument doc;
+            doc.Parse(data.c_str());
+
+            if (IsUpdaterNeedToUpdate(doc)) {
+                return;
+            }
+
+            SetWindowData(L"Checking updates...", 0);
+
+            CheckFilesToUpdate(doc, appPath + L"\\");
         }
-
-        SetWindowData(L"Checking updates...", 0);
-
-        CheckFilesToUpdate(doc, appPath + L"\\");
 
         SetWindowData(L"Starting app...", 100);
 
