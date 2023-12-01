@@ -10,7 +10,7 @@
 using namespace std::filesystem;
 
 #define MAX_LOADSTRING 100
-#define VERSION "1.1.0"
+#define VERSION "1.2.0"
 
 HINSTANCE hInst;
 HWND hWnd;
@@ -252,6 +252,10 @@ void InstallOrProceed() {
         DeleteFile((rootPath + L"\\" PRODUCT_NAME L"_old.exe").c_str());
     }
 
+    SetWindowData(L"Checking update server...", 0);
+
+    bool updateServerAvaliable = IsUrlValid(API_URL GET_CACHES);
+
     if (DirOrFileExists(appPath) && DirOrFileExists(appPath + exeName) && DirOrFileExists(rootPath + exeName))
     {
         if (ExePath() != rootPath)
@@ -274,8 +278,6 @@ void InstallOrProceed() {
 
             return;
         }
-
-        bool updateServerAvaliable = IsUrlValid(API_URL GET_CACHES);
 
         if (updateServerAvaliable) {
             std::string data = GetUrl(API_URL GET_CACHES);
@@ -312,7 +314,7 @@ void InstallOrProceed() {
     }
     else
     {
-        if (PerformInstallation())
+        if (PerformInstallation(updateServerAvaliable))
         {
             InstallOrProceed();
         }

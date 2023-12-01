@@ -62,7 +62,7 @@ static void CreateUninstallEntryIfNeeded(std::wstring filename)
     setUninstallDword(L"NoRepair", 1);
 }
 
-bool PerformInstallation()
+bool PerformInstallation(bool updateServerAvaliable)
 {
 	auto rootPath = GetRootPath();
 
@@ -78,9 +78,15 @@ bool PerformInstallation()
 		CreateDirectory(installPath.c_str(), nullptr);
 	}
 
+	std::string downloadUrl = API_URL DOWNLOAD;
+	if (!updateServerAvaliable)
+	{
+		downloadUrl = BACKUP_DOWNLOAD_URL;
+	}
+
 	SetWindowData(L"Downloading app...", 0);
 
-	DownloadFile(installPath + L"\\ToolKitV.zip", API_URL DOWNLOAD, L"ToolKitV.zip");
+	DownloadFile(installPath + L"\\ToolKitV.zip", downloadUrl, L"ToolKitV.zip");
 
 	SetWindowData(L"Unpacking app...", 0);
 
